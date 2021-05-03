@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Send Objects</string>
+    <string name="name">Name</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="roll_no">Roll No</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="save">SAVE</string>
+</resources>
