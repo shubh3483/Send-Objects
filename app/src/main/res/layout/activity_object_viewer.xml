@@ -95,14 +95,14 @@
         app:layout_constraintStart_toEndOf="@+id/phnNoTextView"
         app:layout_constraintTop_toBottomOf="@+id/showRollTV" />
 
-    <Button
-        android:id="@+id/goBackBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="152dp"
-        android:layout_marginTop="68dp"
-        android:onClick="goBack"
-        android:text="GO BACK"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phnNoTextView" />
+<!--    <Button-->
+<!--        android:id="@+id/goBackBtn"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="152dp"-->
+<!--        android:layout_marginTop="68dp"-->
+<!--        android:onClick="goBack"-->
+<!--        android:text="GO BACK"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/phnNoTextView" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>

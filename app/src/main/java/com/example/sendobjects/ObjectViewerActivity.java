@@ -7,19 +7,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.sendobjects.databinding.ActivityObjectSenderBinding;
 import com.example.sendobjects.models.Constants;
 import com.example.sendobjects.models.Student;
 import com.google.gson.Gson;
 
 public class ObjectViewerActivity extends AppCompatActivity {
 
-    ActivityObjectSenderBinding b;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        b = ActivityObjectSenderBinding.inflate(getLayoutInflater());
         super.onCreate(savedInstanceState);
-        setContentView(b.getRoot());
+        setContentView(R.layout.activity_object_viewer);
         setTitle("Student Details");
         getObject();
     }
@@ -47,10 +44,10 @@ public class ObjectViewerActivity extends AppCompatActivity {
     /**
      * This function will change the activity to Sender Activity.
      * @param view
-     */
+     *//*
     public void goBack(View view) {
 
         Intent intent = new Intent(this, ObjectSenderActivity.class);
         startActivity(intent);
-    }
+    }*/
 }
