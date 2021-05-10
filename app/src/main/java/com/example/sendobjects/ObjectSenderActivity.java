@@ -3,10 +3,13 @@ package com.example.sendobjects;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sendobjects.databinding.ActivityObjectSenderBinding;
@@ -17,6 +20,10 @@ import com.google.gson.Gson;
 public class ObjectSenderActivity extends AppCompatActivity {
 
     ActivityObjectSenderBinding b;
+    String name = "";
+    String gender = "";
+    String rollNo = "";
+    String phnNo = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +32,22 @@ public class ObjectSenderActivity extends AppCompatActivity {
         setContentView(b.getRoot());
         setTitle("Enter Student Details");
         setupHideErrorForEditText();
+        if(savedInstanceState == null){
+            SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+            name = preferences.getString(Constants.NAME,"");
+            gender = preferences.getString(Constants.GENDER,"");
+            rollNo = preferences.getString(Constants.ROLL_NO,"");
+            phnNo = preferences.getString(Constants.PHONE_NO,"");
+            b.nameInput.getEditText().setText(name);
+            b.rollNoInput.getEditText().setText(rollNo);
+            b.phnNoInput.getEditText().setText(phnNo);
+            if(gender.equals("Male")){
+                b.maleRadioBtn.setChecked(true);
+            }
+            else b.femaleRadioBtn.setChecked(true);
+        }
     }
+
     TextWatcher textWatcherForRollNo;
     TextWatcher textWatcherForPhnNo;
     TextWatcher textWatcherForName;
@@ -102,7 +124,7 @@ public class ObjectSenderActivity extends AppCompatActivity {
         /**
          * This is for Name input.
          */
-        String name = b.nameInput.getEditText().getText().toString();
+        name = b.nameInput.getEditText().getText().toString();
         if(name.isEmpty()){
             b.nameInput.setError("Enter your name");
             return;
@@ -113,7 +135,7 @@ public class ObjectSenderActivity extends AppCompatActivity {
         /**
          * This is for radio buttons basically for selection of gender type.
          */
-        String gender = null;
+        gender = null;
         int type = b.radioGrp.getCheckedRadioButtonId();
         if(type == R.id.maleRadioBtn){
             gender = new String("Male");
@@ -130,7 +152,7 @@ public class ObjectSenderActivity extends AppCompatActivity {
         /**
          * This is for Roll No input.
          */
-        String rollNo = b.rollNoInput.getEditText().getText().toString().trim();
+        rollNo = b.rollNoInput.getEditText().getText().toString().trim();
         if(!rollNo.matches("^\\d{2}[a-zA-Z]*\\d{3}")){
             b.rollNoInput.setError("Incorrect Roll No");
             return;
@@ -141,7 +163,7 @@ public class ObjectSenderActivity extends AppCompatActivity {
         /**
          * This is for Phone No input.
          */
-        String phnNo = b.phnNoInput.getEditText().getText().toString().trim();
+        phnNo = b.phnNoInput.getEditText().getText().toString().trim();
         if(!phnNo.matches("^\\d{10}$")){
             b.phnNoInput.setError("Enter 10 digit number");
             return;
@@ -156,6 +178,18 @@ public class ObjectSenderActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        preferences.edit()
+                .putString(Constants.NAME, name)
+                .putString(Constants.ROLL_NO, rollNo)
+                .putString(Constants.PHONE_NO, phnNo)
+                .putString(Constants.GENDER, gender)
+                .apply();
+
+    }
 
     /**
      * These functions are for hiding error from the Phone Edit Text and Roll No Edit Text.

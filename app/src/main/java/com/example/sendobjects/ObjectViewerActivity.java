@@ -7,16 +7,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.sendobjects.databinding.ActivityObjectSenderBinding;
 import com.example.sendobjects.models.Constants;
 import com.example.sendobjects.models.Student;
 import com.google.gson.Gson;
 
 public class ObjectViewerActivity extends AppCompatActivity {
 
+    ActivityObjectSenderBinding b;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        b = ActivityObjectSenderBinding.inflate(getLayoutInflater());
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_object_viewer);
+        setContentView(b.getRoot());
         setTitle("Student Details");
         getObject();
     }
