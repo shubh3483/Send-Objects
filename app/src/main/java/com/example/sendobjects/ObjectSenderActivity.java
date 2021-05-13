@@ -1,10 +1,13 @@
 package com.example.sendobjects;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -32,7 +35,20 @@ public class ObjectSenderActivity extends AppCompatActivity {
         setContentView(b.getRoot());
         setTitle("Enter Student Details");
         setupHideErrorForEditText();
-        if(savedInstanceState == null){
+        if(savedInstanceState != null){
+            name = savedInstanceState.getString(Constants.NAME,"");
+            gender = savedInstanceState.getString(Constants.GENDER,"");
+            rollNo = savedInstanceState.getString(Constants.ROLL_NO,"");
+            phnNo = savedInstanceState.getString(Constants.PHONE_NO,"");
+            b.nameInput.getEditText().setText(name);
+            b.rollNoInput.getEditText().setText(rollNo);
+            b.phnNoInput.getEditText().setText(phnNo);
+            if(gender.equals("Male")){
+                b.maleRadioBtn.setChecked(true);
+            }
+            else b.femaleRadioBtn.setChecked(true);
+
+        }else{
             SharedPreferences preferences = getPreferences(MODE_PRIVATE);
             name = preferences.getString(Constants.NAME,"");
             gender = preferences.getString(Constants.GENDER,"");
@@ -44,7 +60,9 @@ public class ObjectSenderActivity extends AppCompatActivity {
             if(gender.equals("Male")){
                 b.maleRadioBtn.setChecked(true);
             }
-            else b.femaleRadioBtn.setChecked(true);
+            else if(gender.equals("Female")) {
+                b.femaleRadioBtn.setChecked(true);
+            }
         }
     }
 
@@ -189,6 +207,15 @@ public class ObjectSenderActivity extends AppCompatActivity {
                 .putString(Constants.GENDER, gender)
                 .apply();
 
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(Constants.NAME, name);
+        outState.putString(Constants.ROLL_NO, rollNo);
+        outState.putString(Constants.PHONE_NO, phnNo);
+        outState.putString(Constants.GENDER, gender);
     }
 
     /**
